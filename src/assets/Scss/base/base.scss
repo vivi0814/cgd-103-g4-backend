@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap');
+
+.font{
+  font-family: 'Noto Serif TC', '微軟正黑體';
+  font-weight: 700;
+  line-height: 1.2em;
+  letter-spacing: 0.15em;
+  text-align: justify;
+}
+
+.fontSize48{ font-size: 48px; }
+.fontSize36{ font-size: 36px; }
+.fontSize32{ font-size: 32px; }
+.fontSize28{ font-size: 28px; }
+.fontSize24{ font-size: 24px; }
+.fontSize20{ font-size: 20px; }
+
+.fontSize16-22em{
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 2.2em;
+}
+
+.fontSize16-15em{
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5em;
+}

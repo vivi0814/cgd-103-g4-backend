@@ -1,0 +1,28 @@
+// Aside
+.app_wrapper{
+    // display: flex;
+    .app_container{
+        position: relative;
+        width: calc(100% - 300px);
+        min-height: 100vh;
+        left: 300px;
+        .app_main{
+            padding: 40px;
+        }
+    }
+    &:has(.login){
+        header,.nav-aside,.Breadcrumb{
+            display: none;
+        }
+        .app_container{
+            width: 100%;
+            left: 0;
+            .app_main{
+                width: 100%;
+                height: 100vh;
+                background-color: #e2e9f2;
+                
+            }
+        }
+    }
+}

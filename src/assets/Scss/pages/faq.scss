@@ -1,0 +1,317 @@
+@import "../base/font.scss";
+@import "../components/btn.scss";
+.FAQ{
+    main{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        .icon{
+            cursor: pointer;
+            &:hover{
+                color: $clr_blue_L3;
+            }
+        }
+        // 搜尋吧、按鈕
+        .tools{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            // 搜尋吧
+            .search{
+                display: flex;
+                align-items: center;
+                position: relative;
+                .input-blue{
+                    width: 700px;
+                }
+                button{
+                    border: none;
+                    background: none;
+                    color: $clr_blue_L2;
+                    &:hover{
+                        color: $clr_blue_L3;
+                        transition: $trs;
+                    }
+                    &:active{
+                        color: $clr_blue_L1;
+                    }
+                    &:focus-visible{
+                        outline: none;
+                        color: $clr_blue_L1;
+                    }
+                    &:focus:not(:focus-visible){
+                        outline: none;
+                    }
+                    i{
+                        font-size: 30px;
+                        cursor: pointer;
+                        margin: 10px 10px;
+                    }
+                }
+                span{
+                    cursor: pointer;
+                    color: $clr_blue_L2;
+                    position: absolute;
+                    left: 665px;
+                    &:hover{
+                        color: $clr_blue_L3;
+                        transition: $trs;
+                    }
+                }
+            }
+            // 按鈕
+            .btns{
+                text-align: end;
+                button{
+                    &:not(:last-child){
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+        // 分頁
+        .tabs{
+            $lineClr: #DCDEE2;
+            $inactiveClr: #f8f8f9;
+            $hvrClr: #2d8cf0;
+            position: relative;
+            border-bottom: 1px solid $lineClr;
+            margin-bottom: 15px;
+            text-align: start;
+            flex-grow: 1;
+            .tab{
+                cursor: pointer;
+                position: relative;
+                top: 1px;
+                display: inline-block;
+                margin-left: 4px;
+                background: $inactiveClr;
+                color: $clr_gray_L1;
+                border: 1px solid $lineClr;
+                border-radius: 5px 5px 0px 0px;
+                padding: 6px 14px;
+                transition: 0.3s;
+                &:hover{
+                    color: $hvrClr;
+                    transition: 0.3s;
+                }
+                &:active{
+                    background:#fff;
+                    color: $hvrClr;
+                }
+                &:focus-visible{
+                    border-radius: 8px;
+                }
+                &:focus:not(:focus-visible){
+                    outline: none;
+                }
+            }
+            .tab.on{
+                background:#fff;
+                border-bottom: 1px solid #fff;
+                color: $hvrClr;
+            }
+        }
+        .font-14{
+            display: inline-block;
+            font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微軟雅黑",Arial,sans-serif;
+            text-align: start;
+            line-height: 1.6em;
+            margin: 10px 0;
+        }
+    }
+    // 彈窗
+    .alert-mask{
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        transition: opacity .3s ease;
+        .alert-container{
+            position: fixed;
+            // 彈窗>確認彈窗
+            .faq-check{
+                width: fit-content;
+                padding: 30px 80px;
+                border-radius: 10px;
+                background-color: #fff;
+                p{
+                    text-align: center;
+                    margin-bottom: 10px;
+                    &:first-child{
+                        margin-bottom: 5px;
+                        span{
+                            vertical-align: top;
+                        }
+                    }
+                }
+                Button+Button{
+                    margin-left: 30px;
+                }
+            }
+        }
+        // 彈窗>表單
+        .faq-form{
+            width: fit-content;
+            background: $clr_blue_L2;
+            .form-head{
+                position: relative;
+                background: $clr_blue_L0;
+                color: $clr_gray_L5;
+                padding: 10px;
+                display: flex;
+                justify-content: flex-end;
+                p{
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+                span{
+                    cursor: pointer;
+                    transition: 0.3s;
+                    &:hover{
+                        color: $clr_blue_L3;
+                        transition: 0.3s;
+                    }
+                }
+            }
+            .form-body{
+                padding: 40px;
+                >div:not(:last-child){
+                    margin-bottom: 30px;
+                }
+                // 彈窗>表單>上面那排
+                >div:nth-of-type(1){
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    >p{
+                        color: $clr_gray_L5;
+                        vertical-align: bottom;
+                        &:not(:first-child){
+                            margin-left: 30px;
+                        }
+                        &:nth-of-type(3){
+                            color: $clr_blue_L3;
+                        }
+                    }
+                    #newFaq_type{
+                        letter-spacing: 0.15em;
+                        &:deep(.ivu-select-placeholder){
+                            font-family: 'Noto Sans', '微軟正黑體';
+                            letter-spacing: 0.15em;
+                            margin-top: 2px;
+                        }
+                        &.error:deep(.ivu-select-placeholder){
+                            color: #ed4014!important;
+                        }
+                    }
+                }
+                // 彈窗>表單>輸入框
+                >div:nth-of-type(2), >div:nth-of-type(3){
+                    display: flex;
+                    p{
+                        color: $clr_gray_L5;
+                        white-space: nowrap;
+                        &.error{
+                            color: $clr_danger;
+                            font-weight: 600;
+                        }
+                    }
+                    // 字數統計
+                    :deep(.ivu-input-word-count){
+                        position: absolute;
+                        right: 0px;
+                        bottom: -20px;
+                        background: transparent;
+                        color: $clr_blue_L3;
+                        font-size: 14px;
+                        font-weight: 300;
+                        font-family: 'Noto Sans', '微軟正黑體';
+                    }
+                    // 滾動條
+                    &:deep(.ivu-input){
+                        overflow-y: scroll;
+                        &::-webkit-scrollbar-track{
+                            background-color: $clr_blue_L3;
+                        }
+                        &::-webkit-scrollbar{
+                            width: 6px;
+                        }
+                        &::-webkit-scrollbar-thumb{
+                            background-color: $clr_blue_L2;
+                            border-radius: 4px;
+                        }
+                    }
+                    // 輸入框
+                    .ivu-input-type-textarea{
+                        width: 452px;
+                        &:deep(.ivu-input){
+                            font-size: 16px;
+                            font-weight: 500;
+                            font-family: 'Noto Sans', '微軟正黑體';
+                            letter-spacing: 0.05em;
+                            text-align: justify;
+                            padding: 12px 15px;
+                        }
+                        &.error:deep(.ivu-input::placeholder){
+                            color: #ed4014!important;
+                        }
+                    }
+                }
+                // 彈窗>表單>按鈕
+                >div:nth-of-type(4){
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    button:nth-of-type(2){
+                        margin-left: 20px;
+                    }
+                    p{
+                        flex-grow: 1;
+                        color: $clr_blue_L3;
+                    }
+                }
+            }
+        }
+        // 彈窗>新增表單
+        .newForm{
+            top: calc(50vh - 631px / 2); // 表單長 631
+            left: calc(50% - 600px / 2); // 表單寬 600
+        }
+        // 彈窗>編輯表單
+        .editForm{
+            top: calc(50vh - 631px / 2); // 表單長 631
+            left: calc(50% - 600px / 2); // 表單寬 600
+        }
+        // 彈窗>刪除確認
+        .delCheck{
+            top: calc(50vh - 155px / 2); // 表單長 155
+            left: calc(50% - 333px / 2); // 表單寬 333
+        }
+        // 彈窗>修改狀態確認
+        .statusCheck{
+            top: calc(50vh - 155px / 2); // 表單長 155
+            left: calc(50% - 400px / 2); // 表單寬 400
+        }
+        // 彈窗>取消確認
+        .cancelCheck{
+            top: calc(50vh - 155px / 2); // 表單長 155
+            left: calc(50% - 464px / 2); // 表單寬 464
+        }
+    }    
+}
+
+// :deep(.ivu-select-placeholder){
+//     color: #ed4014!important;
+// }
+
+// .ivu-input-word-count{
+//     right: 0!important;
+//     padding-right: 5px;
+// }

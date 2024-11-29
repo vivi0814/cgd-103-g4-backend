@@ -1,0 +1,374 @@
+// class名稱
+// .btn-blue        按鈕:藍色
+// .btn-blue_2nd    按鈕:白底藍框
+// .btn-gold        按鈕:土色
+// .btn-gold_2nd    按鈕:白底土框
+// .btn-success     按鈕:綠色
+// .btn-success_2nd 按鈕:白底綠框
+// .btn-danger      按鈕:紅色
+// .btn-danger_2nd  按鈕:白底紅框
+
+// 使用說明
+// 要用到按鈕的頁面引入這個(路徑可能要改) @import "./assets/sass/components/btn";
+// 然後直接套上面的 class 名稱就可以了
+
+// 藍色系
+$clr_blue_L0: #2D3740;
+$clr_blue_L1: #0C3B59; // main
+$clr_blue_L2: #4F6573;
+$clr_blue_L3: #A3AFBF;
+$clr_blue_L4: #E2E9F2; 
+
+// 土色系
+$clr_gold_L0: #CC8D1B;
+$clr_gold_L1: #BC955C; // main
+$clr_gold_L2: #D7BF9D;
+$clr_gold_L3: #EBDFCE;
+
+// 灰階
+$clr_gray_L1: #444444; // 主要文字 ex.標題 內文
+$clr_gray_L2: #888888; // 次要文字 ex.圖片敘述 消息摘要 內文
+$clr_gray_L3: #cccccc; // 輔助文字 ex.輸入框提示字
+$clr_gray_L4: #E6E6E6; // disabled
+$clr_gray_L5: #F8F8F8;
+$clr_fff: #FFFFFF;
+
+// 提示
+$clr_success: #6C9255; // 正確/成功
+$clr_warning: #EFA828; // 異常/警告
+$clr_danger:  #941111; // 錯誤/刪除
+
+
+
+// transition
+$trs: 0.2s;
+
+// media (max-width)
+$maxWidth: 767px;
+
+// 前台/後台，按鈕樣式切換
+// $desk: front;
+$desk: back;
+
+
+
+@mixin rwd($width){
+    @media screen and (max-width: $width){
+        @content;
+    }
+}
+
+// border (粗細, 顏色, 圓角)
+@mixin border($bdrPx, $bdrClr, $bdrs){
+    border: $bdrPx solid $bdrClr;
+    border-radius: $bdrs;
+    @content;
+}
+
+// padding (上下, 左右)
+@mixin btnPadding($TB, $LR){
+    padding: $TB+px $LR+px;
+    @include rwd($maxWidth){
+        padding: ($TB/5)*4+px ($LR/2)+px;
+    }
+    @content;
+}
+
+// font (粗細, 尺寸)
+@mixin btnFont($weight, $size) {
+    font-weight: $weight;
+    font-size: $size+px;
+    @media (max-width: 767px){
+        font-weight: $weight;
+        font-size: ($size - 2)+px;
+    }
+    @content;
+}
+
+
+
+// 按鈕樣式:共通
+%btn-Style{
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    letter-spacing: 0.15em;
+    transition: $trs;
+}
+
+// 按鈕樣式:前台
+%btn-frontStyle{
+    @include btnPadding(10, 50);
+    @include btnFont(700, 18){
+        font-family: 'Noto Serif TC';
+    }
+}
+
+// 按鈕樣式:後台
+%btn-backStyle{
+    width: min-content;
+    white-space:nowrap;
+    height: 32px;
+    // min-width: 80px;
+    @include btnPadding(4, 12);
+    @include btnFont(500, 14){
+        font-family: 'Noto Sans';
+    }
+}
+
+$btn-type:
+'blue', 'blue_2nd',
+'gold', 'gold_2nd',
+'success', 'success_2nd',
+'danger' , 'danger_2nd' ;
+
+@each $type in $btn-type{
+    .btn-#{$type}{
+        @extend %btn-Style;
+        @if $desk == front{
+            @extend %btn-frontStyle;
+        }
+        @else if $desk == back{
+            @extend %btn-backStyle;
+        }
+    }
+}
+
+
+
+// 變化色按鈕
+@mixin btn-vary_1st($main, $hover, $active, $focus){
+    background: $main;
+    color: $clr_fff;
+    @include border(1px, $main, 6px);
+    &:hover{
+        background: $hover;
+        transition: $trs;
+    }
+    &:active{
+        background: $active;
+    }
+    &:focus-visible{
+        border-radius: 8px;
+        outline: 3px solid $focus;
+    }
+    :focus:not(:focus-visible){
+        outline: none;
+    }
+    &:disabled{
+        background: $clr_gray_L4;
+        color: $clr_gray_L2;
+    }
+}
+
+// 變化色外框按鈕
+@mixin btn-vary_2nd($main, $active, $focus){
+    background: $clr_fff;
+    color: $main;
+    @include border(1px, $main, 6px);
+    &:hover{
+        background: $main;
+        color: $clr_fff;
+        transition: $trs;
+    }
+    &:active{
+        background: $active;
+    }
+    &:focus-visible{
+        border: transparent;
+        border-radius: 8px;
+        outline: 3px solid $focus;
+    }
+    :focus:not(:focus-visible){
+        outline: none;
+    }
+    &:disabled{
+        background: $clr_gray_L4;
+        color: $clr_gray_L2;
+    }
+}
+
+// 按鈕:藍色
+.btn-blue{
+    @include btn-vary_1st(
+        $clr_blue_L1, // main
+        $clr_blue_L2, // hover
+        $clr_blue_L0, // active
+        $clr_blue_L3  // focus
+    );
+}
+
+// 按鈕:土色
+.btn-gold{
+    @include btn-vary_1st(
+        $clr_gold_L1, // main
+        $clr_gold_L2, // hover
+        $clr_gold_L0, // active
+        $clr_gold_L3  // focus
+    );
+}
+
+// 按鈕:白底藍框
+.btn-blue_2nd{
+    @include btn-vary_2nd(
+        $clr_blue_L1, // main/hover
+        $clr_blue_L0, // active
+        $clr_blue_L3  // focus
+    );
+}
+
+// 按鈕:白底土框
+.btn-gold_2nd{
+    @include btn-vary_2nd(
+        $clr_gold_L1, // main/hover
+        $clr_gold_L0, // active
+        $clr_gold_L3  // focus
+    );
+}
+
+
+
+// 單色按鈕
+@mixin btn-plain_1st($btn-clr){
+    background: $btn-clr;
+    color: $clr_fff;
+    @include border(0, transparent, 6px);
+    &:hover{
+        background: lighten($btn-clr, 10);
+        transition: $trs;
+    }
+    &:active{
+        background: $btn-clr;
+    }
+    &:focus-visible{
+        border-radius: 8px;
+        outline: 3px solid darken($btn-clr, 10);
+    }
+    :focus:not(:focus-visible){
+        outline: none;
+    }
+    &:disabled{
+        background: $clr_gray_L4;
+        color: $clr_gray_L2;
+    }
+    @content;
+}
+
+// 單色外框按鈕
+@mixin btn-plain_2nd ($btn-clr){
+    background: $clr_fff;
+    color: $btn-clr;
+    @include border(1px, $btn-clr, 6px);
+    &:hover{
+        background: $btn-clr;
+        color: $clr_fff;
+        transition: $trs;
+    }
+    &:active{
+        background: darken($btn-clr, 10);
+    }
+    &:focus-visible{
+        border: transparent;
+        border-radius: 8px;
+        outline: 3px solid darken($btn-clr, 10);
+    }
+    :focus:not(:focus-visible){
+        outline: none;
+    }
+    &:disabled{
+        background: $clr_gray_L4;
+        color: $clr_gray_L2;
+    }
+    @content;
+}
+
+// 按鈕:綠色
+.btn-success{
+    @include btn-plain_1st($clr_success);
+}
+// 按鈕:紅色
+.btn-danger{
+    @include btn-plain_1st($clr_danger);
+}
+// 按鈕:白底綠框
+.btn-success_2nd{
+    @include btn-plain_2nd($clr_success);
+}
+// 按鈕:白底紅框
+.btn-danger_2nd{
+    @include btn-plain_2nd($clr_danger);
+}
+
+
+
+// input(暫時用)
+%input-style{
+    vertical-align: top;
+    appearance: none;
+    outline: none;
+    @include btnPadding(6, 15);
+    @include btnFont(400, 16){
+        font-family: 'Noto Serif TC';
+        letter-spacing: 0.1em;
+        color: $clr_gray_L1;
+    }
+    &::placeholder{
+        color: $clr_gray_L2;
+        opacity: .8;
+    }
+    &:disabled{
+        background: $clr_gray_L4;
+    }
+}
+
+@mixin inputClr($main, $hover){
+    @include border(1px, $main, 10px);
+    &:active{
+        border-color: $hover;
+    }
+    &:focus{
+        border-color: $hover;
+    }
+    @content;
+}
+
+$input-type: 'blue', 'gold', 'danger';
+
+@each $type in $input-type{
+    .input-#{$type}{
+        @extend %input-style;
+    }
+}
+
+.input-blue{
+    @include inputClr($clr_blue_L3, $clr_blue_L2);
+}
+.input-gold{
+    @include inputClr($clr_gold_L2, $clr_gold_L0);
+}
+.input-danger{
+    position: relative;
+    border: 1px solid $clr_danger;
+    border-radius: 10px;
+        &::placeholder{
+            color: $clr_danger;
+        }
+        &:active{
+            outline: 2px solid lighten($clr_danger, 10);
+        }
+        &:focus{
+            outline: 2px solid lighten($clr_danger, 10);
+        }
+        // input 不支持偽元素
+        // &::after{
+        //     content: '123';
+        //     display: block;
+        //     font-size: 14px;
+        //     font-family: 'Noto Serif TC', '微軟正黑體';
+        //     font-weight: 700;
+        //     line-height: 1.2em;
+        //     letter-spacing: 0.15em;
+        // }
+
+}

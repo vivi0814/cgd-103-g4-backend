@@ -1,0 +1,9 @@
+.app_wrapper .app_container {
+  position: relative;
+  width: calc(100% - 300px);
+  min-height: 100vh;
+  left: 300px;
+}
+.app_wrapper .app_container .app_main {
+  padding: 40px;
+}/*# sourceMappingURL=common.css.map */
